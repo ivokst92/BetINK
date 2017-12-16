@@ -1,0 +1,62 @@
+﻿@model MatchFormViewModel
+
+<form method="post">
+    @Html.HiddenFor(x => x.LeagueId)
+    @Html.HiddenFor(x => x.RoundId)
+
+    @if (Model.Teams.Count == 0)
+    {
+        <div class="form-group">
+            <label asp-for="HomeTeam"></label>
+            <input asp-for="HomeTeam" class="form-control" />
+            <span asp-validation-for="HomeTeam" class="form-text text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AwayTeam"></label>
+            <input asp-for="AwayTeam" class="form-control" />
+            <span asp-validation-for="AwayTeam" class="form-text text-danger"></span>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="HomeTeam"></label>
+            <select asp-for="HomeTeam" asp-items="@Model.Teams" class="selectpicker form-control" data-style="btn-primary"> </select>
+            <span asp-validation-for="HomeTeam" class="form-text text-danger"></span>
+        </div>
+
+            <div class="form-group">
+                <label asp-for="AwayTeam"></label>
+                <select asp-for="AwayTeam" asp-items="@Model.Teams" class="selectpicker form-control" data-style="btn-primary"> </select>
+                <span asp-validation-for="AwayTeam" class="form-text text-danger"></span>
+            </div>
+    }
+    <div class="form-group">
+        <label asp-for="HomeWinPoints"></label>
+        <input asp-for="HomeWinPoints" class="form-control" />
+        <span asp-validation-for="HomeWinPoints" class="form-text text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DrawPoints"></label>
+        <input asp-for="DrawPoints" class="form-control" />
+        <span asp-validation-for="DrawPoints" class="form-text text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AwayWinPoints"></label>
+        <input asp-for="AwayWinPoints" class="form-control" />
+        <span asp-validation-for="AwayWinPoints" class="form-text text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MatchStart"></label>
+        <input asp-for="MatchStart" class="form-control" />
+        <span asp-validation-for="MatchStart" class="form-text text-danger"></span>
+    </div>
+
+    <div>
+        <input class="btn btn-success" type="submit" value="Save" title="Save" />
+    </div>
+</form>

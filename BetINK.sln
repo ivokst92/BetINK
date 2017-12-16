@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetINK.Web", "BetINK.Web\BetINK.Web.csproj", "{308A3B23-53A3-49B4-BC1E-1513B30B1DC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetINK.Common", "BetINK.Common\BetINK.Common.csproj", "{1FBF25CB-1C9B-48FB-B3AA-549CD96AE67D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetINK.Services", "BetINK.Services\BetINK.Services.csproj", "{EA3DF83C-F1EC-4122-8335-C14166C18E9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetINK.DataAccess", "BetINK.DataAccess\BetINK.DataAccess.csproj", "{38C26729-6552-47FD-BE80-34A5F06D412B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{308A3B23-53A3-49B4-BC1E-1513B30B1DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{308A3B23-53A3-49B4-BC1E-1513B30B1DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{308A3B23-53A3-49B4-BC1E-1513B30B1DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{308A3B23-53A3-49B4-BC1E-1513B30B1DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FBF25CB-1C9B-48FB-B3AA-549CD96AE67D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FBF25CB-1C9B-48FB-B3AA-549CD96AE67D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FBF25CB-1C9B-48FB-B3AA-549CD96AE67D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FBF25CB-1C9B-48FB-B3AA-549CD96AE67D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA3DF83C-F1EC-4122-8335-C14166C18E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA3DF83C-F1EC-4122-8335-C14166C18E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA3DF83C-F1EC-4122-8335-C14166C18E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA3DF83C-F1EC-4122-8335-C14166C18E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C26729-6552-47FD-BE80-34A5F06D412B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C26729-6552-47FD-BE80-34A5F06D412B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C26729-6552-47FD-BE80-34A5F06D412B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C26729-6552-47FD-BE80-34A5F06D412B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {207167E9-846A-46CE-B1C1-32620B43BDCE}
+	EndGlobalSection
+EndGlobal

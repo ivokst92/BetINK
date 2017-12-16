@@ -1,0 +1,15 @@
+﻿@model TeamFormViewModel
+<form method="post">
+    <input-ink for="Name"></input-ink>
+    <input-ink for="Country"></input-ink>
+    <input-ink for="EmblemUrl"></input-ink>
+
+    <div class="form-group">
+        <label asp-for="Leagues"></label>
+        <select asp-for="LeagueIds" asp-items="@Model.Leagues" class="selectpicker form-control" multiple data-style="btn-primary"> </select>
+        <span asp-validation-for="LeagueIds" class="form-text text-danger"></span>
+        <span class="small">Hold "ctrl" to select more than one league </span>
+    </div>
+
+    <input class="btn btn-success" type="submit" value="Save" title="Save" />
+</form>

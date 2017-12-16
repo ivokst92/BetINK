@@ -1,0 +1,60 @@
+﻿@model MatchAdminFormViewModel
+
+<form method="post">
+    @Html.HiddenFor(x => x.LeagueId)
+    @Html.HiddenFor(x => x.RoundId)
+
+    @if (Model.Teams.Count == 0)
+    {
+        <input-ink for="HomeTeam"></input-ink>
+        <input-ink for="AwayTeam"></input-ink>
+    }
+    else
+    {
+        <div class="form-group">
+            <div class="form-group">
+                <label asp-for="HomeTeam"></label>
+                <select asp-for="HomeTeam" asp-items="@Model.Teams" class="selectpicker form-control" data-style="btn-primary"> </select>
+                <span asp-validation-for="HomeTeam" class="form-text text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-group">
+                <label asp-for="AwayTeam"></label>
+                <select asp-for="AwayTeam" asp-items="@Model.Teams" class="selectpicker form-control" data-style="btn-primary"> </select>
+                <span asp-validation-for="AwayTeam" class="form-text text-danger"></span>
+            </div>
+        </div>
+    }
+
+    <input-ink for="HomeWinPoints"></input-ink>
+    <input-ink for="DrawPoints"></input-ink>
+    <input-ink for="AwayWinPoints"></input-ink>
+
+    <div class="form-group">
+        <label asp-for="MatchStart"></label>
+        <input asp-for="MatchStart" class="form-control" />
+        <span asp-validation-for="MatchStart" class="form-text text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Result"></label>
+        <input @(Model.Result == null ? "checked" : null) type="radio" class="radio-margin" name="Result" value="" /> <strong>No result yet</strong>
+
+        @foreach (var enumValue in Model.Result.GetResultData<ResultEnum>())
+            {
+                if (Model?.Result != null)
+                {
+                <input type="radio" class="radio-margin" checked name="Result" value="@((int)enumValue)" /> @: <strong>@enumValue.ToDisplayName()</strong>
+            }
+                else
+                {
+                <input type="radio" class="radio-margin" name="Result" value="@((int)enumValue)" /> @: <strong>@enumValue.ToDisplayName()</strong>
+            }
+            }
+        <span asp-validation-for="Result" class="text-danger"></span>
+    </div>
+
+    <input class="btn btn-success" type="submit" value="Save" title="Save" />
+</form>

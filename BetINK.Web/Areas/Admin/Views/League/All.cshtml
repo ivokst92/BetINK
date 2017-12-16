@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LeagueListingServiceModel>
+@{
+    ViewData["Title"] = "Football Leagues";
+}
+<h2>@ViewData["Title"]</h2>
+@if (!(Model.Count() == 0))
+{
+    <div></div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-controller="League" asp-action="AddLeague" class="btn btn-sm btn-success">Add new league</a>
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Country
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var league in Model)
+            {
+                <tr>
+                    <td  class="col-md-2">
+                        <a asp-controller="Team" asp-action="All" asp-route-leagueId="@league.Id" class="btn btn-sm btn-default">Teams</a>
+                        <a asp-controller="League" asp-action="EditLeague" asp-route-id="@league.Id" class="btn btn-sm btn-success">Edit</a>
+                        <a asp-controller="League" asp-action="DeleteLeague" asp-route-id="@league.Id" class="btn btn-sm btn-danger">Remove</a>
+                    </td>
+                    <td  class="col-md-4">
+                        @league.Name
+                    </td>
+                    <td  class="col-md-4">
+                        @league.Country
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No leagues added yet!</h3>
+    <br />
+    <a asp-controller="League" asp-action="AddLeague" class="btn btn-md btn-success">Add new league</a>
+}

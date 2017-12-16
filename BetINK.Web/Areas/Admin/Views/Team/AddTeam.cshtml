@@ -1,0 +1,16 @@
+﻿@model TeamFormViewModel
+@{
+    ViewData["Title"] = "Add new team";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.Partial("_TeamFormModel", Model)
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

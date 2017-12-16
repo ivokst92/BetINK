@@ -1,0 +1,73 @@
+﻿@model IEnumerable<RoundListingServiceModel>
+@{
+    ViewData["Title"] = "Rounds";
+}
+<h2>@ViewData["Title"]</h2>
+
+@if (!(Model.Count() == 0))
+{
+    <div></div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-controller="Round" asp-action="AddRound" class="btn btn-sm btn-success">Add new round</a>
+                </th>
+                <th>
+                    Number
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Active
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var round in Model)
+            {
+                <tr>
+                    <td class="col-md-2">
+                        <a asp-controller="Match" asp-action="All" asp-route-roundId="@round.Id" class="btn btn-sm btn-default">Matches</a>
+                        @if (round.IsEditAllowed)
+                        {
+                            <a asp-controller="Round" asp-action="EditRound" asp-route-id="@round.Id" class="btn btn-sm btn-success">Edit</a>
+                        }
+                    </td>
+                    <td class="col-md-1">
+                        @round.Number
+                    </td>
+                    <td class="col-md-5">
+
+                        @if (round.Description != null && round.Description.Count() > 30)
+                        {
+                            @(round.Description.Substring(0, 30) + "...")
+                        }
+                        else
+                        {
+                            @round.Description
+                        }
+                    </td>
+                    <td class="col-md-2">
+                        @if (round.IsActive)
+                        {
+                            <span>YES</span>
+                        }
+                        else
+                        {
+                            <span>NO</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No rounds added yet!</h3>
+    <br />
+    <a asp-controller="Round" asp-action="AddRound" class="btn btn-md btn-success">Add new round</a>
+}
+

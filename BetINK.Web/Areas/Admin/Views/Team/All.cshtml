@@ -1,0 +1,63 @@
+﻿@model TeamListingViewModel
+@{
+    ViewData["Title"] = $"Teams in {Model.League.Name}";
+}
+<h2>@ViewData["Title"]</h2>
+@if (!(Model.Teams.Count() == 0))
+{
+    <div></div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-controller="Team" asp-action="AddTeam" asp-route-leagueId="@Model.League.Id" class="btn btn-md btn-success">Add new team</a>
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Country
+                </th>
+                <th>
+                    Leagues
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in Model.Teams)
+            {
+                <tr>
+                    <td  class="col-md-2">
+                        <a asp-controller="Team" asp-action="EditTeam" asp-route-teamId="@team.Id" class="btn btn-sm btn-success">Edit</a>
+                        <a asp-controller="Team" asp-action="DeleteTeam" asp-route-teamId="@team.Id" asp-route-leagueId="@Model.League.Id" class="btn btn-sm btn-danger">Remove</a>
+                    </td>
+                    <td  class="col-md-4">
+                        @if (@team.EmblemUrl != null)
+                        {
+                            <img class="emblem" src="@team.EmblemUrl" />
+                        }
+                        @team.Name
+                    </td>
+                    <td  class="col-md-2">
+                        @team.Country
+                    </td>
+                    <td  class="col-md-3">
+                        <ul>
+                            @foreach (var league in team.Leagues)
+                            {
+                                <li>@league</li>
+                            }
+                        </ul>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No teams added to @Model.League.Name yet!</h3>
+    <br />
+    <a asp-controller="Team" asp-action="AddTeam" asp-route-leagueId="@Model.League.Id" class="btn btn-md btn-success">Add new team</a>
+}

@@ -1,0 +1,11 @@
+﻿@model ChooseLeagueViewModel
+@{
+    ViewData["Title"] = "Choose League";
+}
+<h2>@ViewData["Title"]</h2>
+
+@foreach (var league in Model.Leagues)
+{
+    <a asp-controller="@Model.Controller" asp-action="AddMatch" asp-route-roundId="@Model.RoundId" asp-route-leagueId="@league.Id" class="spaceLeft btn btn-sm btn-primary">@league.Name</a>
+}
+<a asp-controller="@Model.Controller" asp-action="AddMatch" asp-route-roundId="@Model.RoundId" class="spaceLeft btn btn-sm btn-default">No league</a>

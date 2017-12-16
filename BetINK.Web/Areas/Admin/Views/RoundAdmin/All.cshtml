@@ -1,0 +1,101 @@
+﻿@model RoundAdminListingViewModel
+@{
+    ViewData["Title"] = "Rounds";
+}
+<h2>@ViewData["Title"]</h2>
+@if (!(Model.Rounds.Count() == 0))
+{
+    <div></div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-controller="RoundAdmin" asp-action="AddRound"  asp-route-seasonId="@Model.SeasonId" class="btn btn-sm btn-success">Add new round</a>
+                </th>
+                <th>
+                    Number
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Active
+                </th>
+                <th>
+                    Matches
+                </th>
+                <th>
+                    Moderator Editable
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Created On
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var round in Model.Rounds)
+            {
+                <tr>
+                    <td class="col-md-2">
+                        <a asp-controller="MatchAdmin" asp-action="All" asp-route-roundId="@round.Id" class="btn btn-sm btn-default">Matches</a>
+                        <a asp-controller="RoundAdmin" asp-action="EditRound" asp-route-seasonId="@Model.SeasonId" asp-route-roundId="@round.Id" class="btn btn-sm btn-success">Edit</a>
+                        <a asp-controller="RoundAdmin" asp-action="DeleteRound" asp-route-seasonId="@Model.SeasonId" asp-route-roundId="@round.Id" class="btn btn-sm btn-danger">Remove</a>
+                    </td>
+                    <td class="col-md-1">
+                        @round.Number
+                    </td>
+                    <td class="col-md-1">
+                        @if (round.Description != null && round.Description.Count() > 10)
+                        {
+                            @(round.Description.Substring(0, 10) + "...")
+                        }
+                        else
+                        {
+                            @round.Description
+                        }
+                    </td>
+                    <td class="col-md-1">
+                        @if (round.IsActive)
+                        {
+                            <strong>YES</strong>
+                        }
+                        else
+                        {
+                            <strong>NO</strong>
+                            <a asp-controller="RoundAdmin" asp-action="SetRoundAsActive" asp-route-seasonId="@Model.SeasonId" asp-route-roundId="@round.Id" class="btn btn-sm btn-default">Active</a>
+                        }
+                    </td>
+                    <td class="col-md-1">
+                        @round.MatchesCount
+                    </td>
+                    <td class="col-md-1">
+                        @if (round.EditableForModerator)
+                        {
+                            <strong>YES</strong>
+                            <a asp-controller="RoundAdmin" asp-action="SetAsReadonlyForModerator" asp-route-seasonId="@Model.SeasonId" asp-route-roundId="@round.Id" class="btn btn-sm btn-default">Readonly</a>
+                        }
+                        else
+                        {
+                            <strong>NO</strong>
+                        }
+                    </td>
+                    <td class="col-md-1">
+                        @round.CreatedBy
+                    </td>
+                    <td class="col-md-1">
+                        @(round.CreatedOn.ToShortDateString() + " " + round.CreatedOn.ToShortTimeString())
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No rounds added yet!</h3>
+    <br />
+    <a asp-controller="RoundAdmin" asp-action="AddRound" asp-route-seasonId="@Model.SeasonId" class="btn btn-md btn-success">Add new round</a>
+}

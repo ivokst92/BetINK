@@ -1,0 +1,81 @@
+﻿@model MatchListingViewModel
+@{
+    ViewData["Title"] = "Football games";
+}
+<h2>@ViewData["Title"]</h2>
+@if (!(Model.Matches.Count() == 0))
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                @if (Model.Matches.Select(x => x.IsEditAllowed).First())
+                {
+                    <th>
+                        <a asp-controller="Match" asp-action="ChooseLeague" asp-route-roundId="@Model.RoundId" class="btn btn-sm btn-success">Add new match</a>
+                    </th>
+                }
+                <th>
+                    Home Team
+                </th>
+                <th>
+                    Away Team
+                </th>
+                <th>
+                    Home Win Points
+                </th>
+                <th>
+                    Draw Points
+                </th>
+                <th>
+                    Away Win Points
+                </th>
+                <th>
+                    Match Start
+                </th>
+                <th>
+                    Result
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Match in Model.Matches)
+                {
+                <tr>
+                    @if (Match.IsEditAllowed)
+                    {
+                        <td class="col-md-1">
+                            <a asp-controller="Match" asp-action="EditMatch" asp-route-matchId="@Match.Id" asp-route-roundId="@Match.RoundId" class="btn btn-sm btn-success">Edit</a>
+                        </td>
+                    }
+                    <td class="col-md-2">
+                        @Match.HomeTeam
+                    </td>
+                    <td class="col-md-2">
+                        @Match.AwayTeam
+                    </td>
+                    <td class="col-md-1">
+                        @Match.HomeWinPoints
+                    </td>
+                    <td class="col-md-1">
+                        @Match.DrawPoints
+                    </td>
+                    <td class="col-md-1">
+                        @Match.AwayWinPoints
+                    </td>
+                    <td class="col-md-2">
+                        @(Match.MatchStart.ToShortDateString() + " " + Match.MatchStart.ToShortTimeString())
+                    </td>
+                    <td class="col-md-1">
+                        @Match.ResultFriendlyNamed
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No matches added yet!</h3>
+    <br />
+    <a asp-controller="Match" asp-action="ChooseLeague" asp-route-roundId="@Model.RoundId" class="btn btn-sm btn-success">Add new match</a>
+}

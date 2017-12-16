@@ -1,0 +1,10 @@
+﻿@model DeleteConfirmationViewModel
+
+@{
+    ViewData["Title"] = $"Delete {Model.ItemName}";
+}
+
+<h2>Are you sure you want to delete this @Model.ItemName?</h2>
+
+<a href="@Model.CancelPath" class="btn btn-default">Cancel</a>
+<a href="@Model.DestroyPath" class="btn btn-danger">Confirm Delete</a>

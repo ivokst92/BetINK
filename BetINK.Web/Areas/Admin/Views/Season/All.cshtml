@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SeasonListingServiceModel>
+@{
+    ViewData["Title"] = "Seasons";
+}
+<h2>@ViewData["Title"]</h2>
+@if (!(Model.Count() == 0))
+{
+    <div></div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-controller="Season" asp-action="AddSeason" class="btn btn-sm btn-success">Add new season</a>
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Active
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var season in Model)
+            {
+                <tr>
+                    <td  class="col-md-2">
+                        <a asp-controller="RoundAdmin" asp-action="All" asp-route-seasonId="@season.Id" class="btn btn-sm btn-default">Rounds</a>
+                        <a asp-controller="Season" asp-action="EditSeason" asp-route-id="@season.Id" class="btn btn-sm btn-success">Edit</a>
+                        <a asp-controller="Season" asp-action="DeleteSeason" asp-route-id="@season.Id" class="btn btn-sm btn-danger">Remove</a>
+                    </td>
+                    <td  class="col-md-1">
+                        @season.Name
+                    </td>
+                    <td  class="col-md-6">
+
+                        @if (season.Description != null && season.Description.Count() > 30)
+                        {
+                            @(season.Description.Substring(0, 30) + "...")
+                        }
+                        else
+                        {
+                            @season.Description
+                        }
+                    </td>
+                    <td class="col-md-1">
+                        @if (season.IsActive)
+                        {
+                            <span>YES</span>
+                        }
+                        else
+                        {
+                            <span>NO</span>
+                                <a asp - controller="Season" asp-action="SetActiveSeason" asp-route-seasonId="@season.Id" class="btn btn-sm btn-default">Set as Active</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No seasons added yet!</h3>
+            <br />
+            <a asp-controller="Season" asp-action="AddSeason" class="btn btn-md btn-success">Add new season</a>
+}

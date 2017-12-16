@@ -1,0 +1,69 @@
+﻿@model AdminUserListingsViewModel
+@{
+    ViewData["Title"] = "User Administration";
+}
+<h2>@ViewData["Title"]</h2>
+
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Roles
+            </th>
+            <th>
+                Add/Remove role
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>
+                    @user.Username
+                </td>
+                <td>
+                    @user.Email
+                </td>
+                <td>
+                    <ul>
+                        @if (user.Roles == null || user.Roles.Count() == 0)
+                        {
+                            <li>No Role</li>
+                        }
+                        else
+                        {
+                            @foreach (var role in user.Roles)
+                            {
+                                <li>@role</li>
+                            }
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <form asp-controller="Users" asp-action="AddToRole">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="hidden" name="UserId" value="@user.Id" />
+                                <select name="Role" asp-items="Model.Roles" class="form-control"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-sm btn-success" asp-action="AddToRole" asp-controller="Users">Add</button>
+                                <button class="btn btn-sm btn-danger" asp-action="RemoveFromRole" asp-controller="Users">Remove</button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
