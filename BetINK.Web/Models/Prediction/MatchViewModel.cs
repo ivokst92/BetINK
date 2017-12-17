@@ -1,6 +1,10 @@
 ﻿namespace BetINK.Web.Models.Prediction
 {
-    public class MatchViewModel
+    using BetINK.Common.Enums;
+    using BetINK.Common.Mapping;
+    using BetINK.Services.Models.Match;
+
+    public class MatchViewModel : IMapFrom<MatchServiceModel>
     {
         public int Id { get; set; }
         public string HomeTeam { get; set; }
@@ -9,7 +13,6 @@
         public decimal HomeWinPoints { get; set; }
         public decimal DrawPoints { get; set; }
         public decimal AwayWinPoints { get; set; }
-        public string UserPrediction { get; set; }
-        public bool IsPredictionAllowed { get; set; }
+        public ResultEnum? UserPrediction { get; set; }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model List<MatchViewModel>
+
+@for (int i = 0; i < Model.Count(); i++)
+{
+    @Html.HiddenFor(Matches => Matches[i].Id)
+    @Html.HiddenFor(Matches => Matches[i].AwayTeam)
+    @Html.HiddenFor(Matches => Matches[i].HomeTeam)
+    @Html.HiddenFor(Matches => Matches[i].HomeWinPoints)
+    @Html.HiddenFor(Matches => Matches[i].DrawPoints)
+    @Html.HiddenFor(Matches => Matches[i].AwayWinPoints)
+    <div class="btn-group btn-group-justified @(ViewData["status"]== null ? string.Empty : ViewData["status"] )" data-toggle="buttons">
+        <label class="btn btn-primary btn-bet-active @(Model[i].UserPrediction == ResultEnum.HOME_WIN ? "active" : "")">
+            @Html.RadioButtonFor(Matches => Matches[i].UserPrediction, ResultEnum.HOME_WIN) @Model[i].HomeTeam-@Model[i].HomeWinPoints
+        </label>
+        <label class="btn btn-primary btn-bet-active  @(Model[i].UserPrediction == ResultEnum.DRAW ? "active" : "")">
+            @Html.RadioButtonFor(Matches => Matches[i].UserPrediction, ResultEnum.DRAW)Draw-@Model[i].DrawPoints
+        </label>
+        <label class="btn btn-primary btn-bet-active  @(Model[i].UserPrediction == ResultEnum.AWAY_WIN ? "active" : "")">
+            @Html.RadioButtonFor(Matches => Matches[i].UserPrediction, ResultEnum.AWAY_WIN)@Model[i].AwayTeam-@Model[i].AwayWinPoints
+        </label>
+    </div>
+    <br />
+}

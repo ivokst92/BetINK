@@ -3,61 +3,35 @@
     ViewBag.Title = "Bet";
 }
 
-@if (Model.Matches == null || Model.Matches.Count == 0)
+@if ((Model.Matches == null || Model.Matches.Count == 0)
+              && (Model.StartedMatches == null || Model.StartedMatches.Count == 0))
 {
     <h2>No active round yet!</h2>
 }
-else if (!Model.AlreadyPredicted && Model.Matches.Count > 0)
+else if (!Model.AlreadyPredicted && (Model.Matches.Count > 0 || Model.StartedMatches.Count > 0))
 {
-    <h2>Predictions round - @Model.RoundNumber</h2>
-    <form method="post">
-        @Html.HiddenFor(m => m.AlreadyPredicted)
-        @for (int i = 0; i < Model.Matches.Count; i++)
-        {
-            @Html.HiddenFor(m => m.Matches[i].Id)
-            @Html.HiddenFor(m => m.Matches[i].AwayTeam)
-            @Html.HiddenFor(m => m.Matches[i].HomeTeam)
-            @Html.HiddenFor(m => m.Matches[i].HomeWinPoints)
-            @Html.HiddenFor(m => m.Matches[i].DrawPoints)
-            @Html.HiddenFor(m => m.Matches[i].AwayWinPoints)
-            <div class="btn-group btn-group-justified" data-toggle="buttons">
-                <label class="btn btn-primary btn-bet-active @(Model.Matches[i].UserPrediction == ResultEnum.HOME_WIN ? "active" : "")">
-                    @Html.RadioButtonFor(m => m.Matches[i].UserPrediction, ResultEnum.HOME_WIN) @Model.Matches[i].HomeTeam-@Model.Matches[i].HomeWinPoints
-                </label>
-                <label class="btn btn-primary btn-bet-active  @(Model.Matches[i].UserPrediction == ResultEnum.DRAW ? "active" : "")">
-                    @Html.RadioButtonFor(m => m.Matches[i].UserPrediction, ResultEnum.DRAW)Draw-@Model.Matches[i].DrawPoints
-                </label>
-                <label class="btn btn-primary btn-bet-active  @(Model.Matches[i].UserPrediction == ResultEnum.AWAY_WIN ? "active" : "")">
-                    @Html.RadioButtonFor(m => m.Matches[i].UserPrediction, ResultEnum.AWAY_WIN)@Model.Matches[i].AwayTeam-@Model.Matches[i].AwayWinPoints
-                </label>
-            </div>
+
+    @if (Model.Matches.Count > 0)
+    {
+        <h2>Predictions round - @Model.RoundNumber</h2>
+        <form method="post">
+            @Html.HiddenFor(m => m.AlreadyPredicted)
+            @Html.EditorFor(x => x.Matches, "~/Views/Shared/MatchCollection.cshtml")
             <br />
-        }
-        <br />
-        <input type="submit" class="btn btn-primary" name="submitbutton" value="Save predictions" />
-    </form>
+            <input type="submit" class="btn btn-primary" name="submitbutton" value="Save predictions" />
+        </form>
+    }
+
+    if (Model.StartedMatches.Count > 0)
+    {
+        <h3>Sorry, you've missed to bet @(Model.StartedMatches.Count == 1 ? "this match: " : "these matches:") </h3>
+        @Html.EditorFor(x => x.StartedMatches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
+        <small>Note that, you cannot bet on matches that are already started! </small>
+    }
 }
 else
 {
     <h2>Your predictions for round @Model.RoundNumber</h2>
-    for (int i = 0; i < Model.Matches.Count; i++)
-    {
-        @Html.HiddenFor(m => m.Matches[i].AwayTeam)
-        @Html.HiddenFor(m => m.Matches[i].HomeTeam)
-        @Html.HiddenFor(m => m.Matches[i].HomeWinPoints)
-        @Html.HiddenFor(m => m.Matches[i].DrawPoints)
-        @Html.HiddenFor(m => m.Matches[i].AwayWinPoints)
-        <div class="btn-group btn-group-justified disabled-radio" data-toggle="buttons">
-            <label class="btn btn-primary btn-bet-active @(Model.Matches[i].UserPrediction == ResultEnum.HOME_WIN ? "active" : "")">
-                @Html.RadioButtonFor(m => m.Matches[i].UserPrediction, ResultEnum.HOME_WIN) @Model.Matches[i].HomeTeam-@Model.Matches[i].HomeWinPoints
-            </label>
-            <label class="btn btn-primary btn-bet-active  @(Model.Matches[i].UserPrediction == ResultEnum.DRAW ? "active" : "")">
-                @Html.RadioButtonFor(m => m.Matches[i].UserPrediction, ResultEnum.DRAW)Draw-@Model.Matches[i].DrawPoints
-            </label>
-            <label class="btn btn-primary btn-bet-active @(Model.Matches[i].UserPrediction == ResultEnum.AWAY_WIN ? "active" : "")">
-                @Html.RadioButtonFor(m => m.Matches[i].UserPrediction, ResultEnum.AWAY_WIN)@Model.Matches[i].AwayTeam-@Model.Matches[i].AwayWinPoints
-            </label>
-        </div>
-        <br />
-    }
+    @Html.EditorFor(x => x.Matches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
+    @Html.EditorFor(x => x.StartedMatches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
 }

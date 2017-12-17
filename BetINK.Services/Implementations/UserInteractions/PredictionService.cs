@@ -36,7 +36,7 @@
             this.db.SaveChanges();
         }
 
-        public IEnumerable<MatchServiceModel> GetActiveMatches(string userId)
+        public IQueryable<MatchServiceModel> GetActiveMatches(string userId)
         {
             int activeRoundId = GetCurrentActiveRound();
             return this.db.Matches
@@ -61,7 +61,8 @@
             int activeRoundId = GetCurrentActiveRound();
             return this.db.Matches
                  .OrderByDescending(x => x.Id)
-                 .Where(x => x.RoundId == activeRoundId)
+                 .Where(x => x.RoundId == activeRoundId &&
+                 x.MatchStart > DateTime.Now)
                  .Select(x => x.Id)
                  .ToList();
         }

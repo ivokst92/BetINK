@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
+    using AutoMapper.QueryableExtensions;
 
     public class PredictionController : Controller
     {
@@ -28,11 +29,13 @@
         public ActionResult Bet()
         {
             var userId = GetUserId();
+            var matches = this.predictionService.GetActiveMatches(userId);
             var model = new ActiveRoundViewModel()
             {
                 RoundNumber = this.predictionService.GetActiveRoundNumber(),
                 AlreadyPredicted = this.predictionService.IsCurrentRoundPredicted(userId),
-                Matches = this.predictionService.GetActiveMatches(userId).ToList()
+                Matches = matches.Where(x => x.IsPredictionAllowed).ProjectTo<MatchViewModel>().ToList(),
+                StartedMatches = matches.Where(x => x.IsPredictionAllowed == false).ProjectTo<MatchViewModel>().ToList()
             };
             return View(model);
         }
@@ -57,11 +60,10 @@
             foreach (var match in model.Matches)
             {
                 bool activeMatch = activeMatchesIds.Contains(match.Id);
-                if (!activeMatch)
+                if (activeMatch)
                 {
-                    return BadRequest();
+                    predictions.Add(match.Id, match.UserPrediction.Value);
                 }
-                predictions.Add(match.Id, match.UserPrediction.Value);
             }
 
             this.predictionService.AddPrediction(predictions, GetUserId());
