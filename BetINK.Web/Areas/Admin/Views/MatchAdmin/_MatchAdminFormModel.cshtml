@@ -44,15 +44,15 @@
 
         @foreach (var enumValue in Model.Result.GetResultData<ResultEnum>())
             {
-                if (Model?.Result != null)
+                if (Model.Result == enumValue)
                 {
                 <input type="radio" class="radio-margin" checked name="Result" value="@((int)enumValue)" /> @: <strong>@enumValue.ToDisplayName()</strong>
-            }
+                }
                 else
                 {
                 <input type="radio" class="radio-margin" name="Result" value="@((int)enumValue)" /> @: <strong>@enumValue.ToDisplayName()</strong>
-            }
-            }
+                }
+         }
         <span asp-validation-for="Result" class="text-danger"></span>
     </div>
 

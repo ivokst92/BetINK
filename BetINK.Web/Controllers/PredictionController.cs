@@ -13,6 +13,7 @@
     using System.Linq;
     using AutoMapper.QueryableExtensions;
 
+    [Authorize]
     public class PredictionController : Controller
     {
         IPredictionService predictionService;
@@ -25,7 +26,7 @@
             this.userManager = userManager;
         }
 
-        [Authorize]
+        
         public ActionResult Bet()
         {
             var userId = GetUserId();
@@ -34,29 +35,34 @@
             {
                 RoundNumber = this.predictionService.GetActiveRoundNumber(),
                 AlreadyPredicted = this.predictionService.IsCurrentRoundPredicted(userId),
-                Matches = matches.Where(x => x.IsPredictionAllowed).ProjectTo<MatchViewModel>().ToList(),
-                StartedMatches = matches.Where(x => x.IsPredictionAllowed == false).ProjectTo<MatchViewModel>().ToList()
+                Matches = matches
+                    .Where(x => x.IsPredictionAllowed)
+                    .ProjectTo<MatchViewModel>()
+                    .ToList(),
+                StartedMatches = matches
+                    .Where(x => x.IsPredictionAllowed == false)
+                    .ProjectTo<MatchViewModel>()
+                    .ToList()
             };
             return View(model);
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult Bet(ActiveRoundViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
+            
+            //Return back to view if any non predicted match
             var anyNonPredictedMatch = model.Matches.Any(x => x.UserPrediction == null);
             if (anyNonPredictedMatch)
             {
                 this.TempData.AddErrorMessage(MessageResources.msgBetAllMatches);
                 return View(model);
             }
+            
             List<int> activeMatchesIds = this.predictionService.GetAllActiveMatchesIds();
             Dictionary<int, ResultEnum> predictions = new Dictionary<int, ResultEnum>();
+
+            //Compare client side matches with in db active matches.
             foreach (var match in model.Matches)
             {
                 bool activeMatch = activeMatchesIds.Contains(match.Id);
