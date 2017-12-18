@@ -33,7 +33,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Prediction" asp-action="Bet">Bet</a></li>
                     <li><a asp-area="" asp-controller="Chart" asp-action="Index">Chart</a></li>
+                    <li><a asp-area="" asp-controller="Chart" asp-action="Standings">Leagues Standings</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -80,7 +82,7 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>

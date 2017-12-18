@@ -1,14 +1,12 @@
 ﻿namespace BetINK.Services.Implementations.UserInteractions
 {
     using BetINK.Common.Enums;
-    using BetINK.DataAccess.Models;
     using BetINK.Services.Interfaces.UserInteractions;
     using BetINK.Services.Models.Chart;
     using BetINK.Web.Data;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
 
     public class ChartService : IChartService
     {
@@ -18,6 +16,17 @@
         {
             this.db = db;
         }
+
+        public Dictionary<string, string> GetLeagues()
+        => new Dictionary<string, string>()
+            {
+            { "premier-league","Premier League" },
+            {"bundesliga","Bundesliga" },
+            {"serie-a", "Serie A" },
+            {"liga","La Liga" },
+            {"ligue1","Ligue 1" },
+            {"eredivisie","Eredivisie" },
+            };
 
         public IEnumerable<ChartServiceModel> GetUsersChart()
         {
@@ -37,7 +46,7 @@
                         x.Match.AwayWinPoints : 0
                         )
                     })
-                    .OrderByDescending(x=>x.Points)
+                    .OrderByDescending(x => x.Points)
                     .ToList();
         }
 

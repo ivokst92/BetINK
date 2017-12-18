@@ -54,7 +54,9 @@ namespace BetINK.Web.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                FirstName = user.FirstName,
+                LastName=user.LastName
             };
 
             return View(model);
@@ -85,14 +87,21 @@ namespace BetINK.Web.Controllers
                 }
             }
 
-            var phoneNumber = user.PhoneNumber;
-            if (model.PhoneNumber != phoneNumber)
+            var firstNameIsChanged = model.FirstName != user.FirstName;
+            var LastNameIsChanged = model.LastName != user.LastName;
+            if (firstNameIsChanged)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-                }
+                user.FirstName = model.FirstName;
+            }
+
+            if (LastNameIsChanged)
+            {
+                user.LastName = model.LastName;
+            }
+
+            if (firstNameIsChanged || LastNameIsChanged)
+            {
+                var result = await this._userManager.UpdateAsync(user);
             }
 
             StatusMessage = "Your profile has been updated";

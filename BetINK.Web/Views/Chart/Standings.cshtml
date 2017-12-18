@@ -1,0 +1,21 @@
+﻿@model Dictionary<string, string>
+@{
+    ViewData["Title"] = "Leagues Standings";
+}
+<h2>@ViewData["Title"]</h2>
+
+@foreach (var keyValue in Model)
+{
+    <input type="submit" class="btn btn-primary btn-margin" value="@keyValue.Value" onclick="GerPremierLeagueTable('@keyValue.Key')" />
+}
+
+<div id="divResult">
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/standings.js"></script>
+<script>
+    $(document).ready(function () {
+        GerPremierLeagueTable("@Model.Select(x => x.Key).FirstOrDefault()");
+    });
+</script>

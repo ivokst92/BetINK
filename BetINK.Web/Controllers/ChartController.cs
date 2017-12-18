@@ -14,10 +14,10 @@
         }
 
         public IActionResult Index()
-        {
-            var model = this.chartService.GetUsersChart();
-            return View(model);
-        }
+            => View(this.chartService.GetUsersChart());
+
+        public IActionResult Standings()
+        => View(this.chartService.GetLeagues());
 
     }
 }
