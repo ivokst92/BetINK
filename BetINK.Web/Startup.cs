@@ -42,6 +42,8 @@
 
             services.AddRouting(routing => routing.LowercaseUrls = true);
 
+            services.AddMemoryCache();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
