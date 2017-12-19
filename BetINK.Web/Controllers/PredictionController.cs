@@ -26,7 +26,7 @@
             this.userManager = userManager;
         }
 
-        
+
         public ActionResult Bet()
         {
             var userId = GetUserId();
@@ -50,7 +50,7 @@
         [HttpPost]
         public ActionResult Bet(ActiveRoundViewModel model)
         {
-            
+
             //Return back to view if any non predicted match
             var anyNonPredictedMatch = model.Matches.Any(x => x.UserPrediction == null);
             if (anyNonPredictedMatch)
@@ -58,7 +58,7 @@
                 this.TempData.AddErrorMessage(MessageResources.msgBetAllMatches);
                 return View(model);
             }
-            
+
             List<int> activeMatchesIds = this.predictionService.GetAllActiveMatchesIds();
             Dictionary<int, ResultEnum> predictions = new Dictionary<int, ResultEnum>();
 
@@ -73,11 +73,11 @@
             }
 
             this.predictionService.AddPrediction(predictions, GetUserId());
+            this.TempData.AddSuccessMessage(MessageResources.msgSuccessfulPredictions);
             return RedirectToAction(nameof(Bet));
         }
 
         private string GetUserId()
         => this.userManager.GetUserId(User);
-
     }
 }

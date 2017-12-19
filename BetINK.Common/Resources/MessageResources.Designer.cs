@@ -178,6 +178,15 @@ namespace BetINK.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your predictions are successfully added, good luck!.
+        /// </summary>
+        public static string msgSuccessfulPredictions {
+            get {
+                return ResourceManager.GetString("msgSuccessfulPredictions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User {0} removed from {1} role..
         /// </summary>
         public static string msgSuccessRemovedFromRole {

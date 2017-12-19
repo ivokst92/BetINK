@@ -2,7 +2,6 @@
 {
     using BetINK.Services.Interfaces.UserInteractions;
     using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     public class ChartController : Controller
     {
@@ -18,6 +17,5 @@
 
         public IActionResult Standings()
         => View(this.chartService.GetLeagues());
-
     }
 }

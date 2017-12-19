@@ -168,4 +168,7 @@
   <data name="msgBetAllMatches" xml:space="preserve">
     <value>Betting all matches is required!</value>
   </data>
+  <data name="msgSuccessfulPredictions" xml:space="preserve">
+    <value>Your predictions are successfully added, good luck!</value>
+  </data>
 </root>

@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using BetINK.Common.Constants;
-using BetINK.Common.Mapping;
-using BetINK.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BetINK.Web.Infrastructure.Mapping
+﻿namespace BetINK.Web.Infrastructure.Mapping
 {
+    using AutoMapper;
+    using BetINK.Common.Constants;
+    using BetINK.Common.Mapping;
+    using BetINK.Services.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
