@@ -59,7 +59,7 @@
                 return View(model);
             }
 
-            List<int> activeMatchesIds = this.predictionService.GetAllActiveMatchesIds();
+            List<int> activeMatchesIds = this.predictionService.GetCurrentActiveMatchesIds();
             Dictionary<int, ResultEnum> predictions = new Dictionary<int, ResultEnum>();
 
             //Compare client side matches with in db active matches.

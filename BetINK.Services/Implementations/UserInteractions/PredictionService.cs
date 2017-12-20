@@ -57,7 +57,8 @@
                   .FirstOrDefault();
         }
 
-        public List<int> GetAllActiveMatchesIds()
+        //Getting all active matches didn't start yet.
+        public List<int> GetCurrentActiveMatchesIds()
         {
             int activeRoundId = GetCurrentActiveRound();
             return this.db.Matches
@@ -68,13 +69,29 @@
                  .ToList();
         }
 
-        public bool IsCurrentRoundPredicted(string userId)
+        //Getting all active matches (even started).
+        private List<int> GetAllMatchesIdsFromActiveRound()
         {
             int activeRoundId = GetCurrentActiveRound();
-            List<int> activeMatches = GetAllActiveMatchesIds();
-            return this.db.Predictions
-                .Any(x => x.UserId == userId
-                && activeMatches.Contains(x.MatchId));
+            return this.db.Matches
+                 .OrderByDescending(x => x.Id)
+                 .Where(x => x.RoundId == activeRoundId)
+                 .Select(x => x.Id)
+                 .ToList();
+        }
+
+        public bool IsCurrentRoundPredicted(string userId)
+        {
+            List<int> activeMatches = GetAllMatchesIdsFromActiveRound();
+            foreach (var matchId in activeMatches)
+            {
+                bool Any = this.db.Predictions
+                .Any(x => x.UserId == userId && x.MatchId == matchId);
+
+                if (Any)
+                    return Any;
+            }
+            return false;
         }
 
         private int GetActiveSeason()

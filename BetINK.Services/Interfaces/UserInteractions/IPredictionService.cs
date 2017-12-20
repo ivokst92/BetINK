@@ -11,7 +11,7 @@
 
         IQueryable<MatchServiceModel> GetActiveMatches(string userId);
 
-        List<int> GetAllActiveMatchesIds();
+        List<int> GetCurrentActiveMatchesIds();
 
         void AddPrediction(Dictionary<int,ResultEnum> predictions, string userId);
 
