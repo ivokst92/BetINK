@@ -8,6 +8,7 @@
     using AutoMapper.QueryableExtensions;
     using BetINK.DataAccess.Models;
     using System;
+    using BetINK.Common.Helpers;
 
     public class RoundService : IRoundService
     {
@@ -49,7 +50,7 @@
                 Number = number,
                 Description = description,
                 CreatedBy = username,
-                CreatedOn = DateTime.Now,
+                CreatedOn = DateTime.Now.ToFLEStandartTime(),
                 SeasonId = activeSeasonId
             });
             this.db.SaveChanges();
@@ -67,7 +68,7 @@
             round.Number = number;
             round.Description = description;
             round.ModifiedBy = username;
-            round.ModifiedOn = DateTime.Now;
+            round.ModifiedOn = DateTime.Now.ToFLEStandartTime();
 
             this.db.SaveChanges();
         }

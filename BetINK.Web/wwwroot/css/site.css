@@ -3,6 +3,16 @@
     padding-bottom: 20px;
 }
 
+.background {
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+}
+
+.hide-control {
+    display: none;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {

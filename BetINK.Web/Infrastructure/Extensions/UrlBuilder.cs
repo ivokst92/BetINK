@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace BetINK.Web.Infrastructure.Extensions
+﻿namespace BetINK.Web.Infrastructure.Extensions
 {
+    using System.Collections.Generic;
+
     public static class UrlBuilder
     {
         public static string GetUrl(string controller, string action, string id = null, string area = null, Dictionary<string, string> additionalParameters = null)
@@ -20,7 +20,6 @@ namespace BetINK.Web.Infrastructure.Extensions
                 {
                     url = url + "?" + keyValue.Key + "=" + keyValue.Value;
                 }
-
             }
 
             return url;

@@ -4,7 +4,6 @@
     using BetINK.Services.Interfaces.UserInteractions;
     using BetINK.Services.Models.Chart;
     using BetINK.Web.Data;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 

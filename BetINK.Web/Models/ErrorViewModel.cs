@@ -1,5 +1,3 @@
-using System;
-
 namespace BetINK.Web.Models
 {
     public class ErrorViewModel

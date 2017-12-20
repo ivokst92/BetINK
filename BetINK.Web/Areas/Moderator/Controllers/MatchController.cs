@@ -1,5 +1,6 @@
 ﻿namespace BetINK.Web.Areas.Moderator.Controllers
 {
+    using BetINK.Common.Helpers;
     using BetINK.Common.Resources;
     using BetINK.Services.Interfaces.Admin;
     using BetINK.Services.Interfaces.Moderator;
@@ -78,7 +79,7 @@
                 HomeWinPoints = 1,
                 AwayWinPoints = 1,
                 DrawPoints = 1,
-                MatchStart = DateTime.Now,
+                MatchStart = DateTime.Now.ToFLEStandartTime(),
                 Teams = teams,
                 RoundId = roundId,
                 LeagueId = leagueId

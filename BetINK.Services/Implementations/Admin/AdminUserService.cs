@@ -1,12 +1,12 @@
-﻿using BetINK.Services.Interfaces.Admin;
-using BetINK.Services.Models.Admin;
-using BetINK.Web.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace BetINK.Services.Implementations.Admin
+﻿namespace BetINK.Services.Implementations.Admin
 {
+    using BetINK.Services.Interfaces.Admin;
+    using BetINK.Services.Models.Admin;
+    using BetINK.Web.Data;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+
+    using System.Linq;
     public class AdminUserService : IAdminUserService
     {
         private readonly BetINKDbContext db;

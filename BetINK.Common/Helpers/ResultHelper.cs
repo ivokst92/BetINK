@@ -1,7 +1,7 @@
-﻿using BetINK.Common.Enums;
-
-namespace BetINK.Common.Helpers
+﻿namespace BetINK.Common.Helpers
 {
+    using BetINK.Common.Enums;
+
     public static class ResultHelper
     {
         public const string HOME_WIN = "1";

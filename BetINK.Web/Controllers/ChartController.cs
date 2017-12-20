@@ -21,18 +21,14 @@
         public IActionResult Index()
         {
             IEnumerable<ChartServiceModel> model;
-
-            // Look for cache key.
+            
             if (!memoryCache.TryGetValue(ChartCacheKey, out model))
             {
-                // Key not in cache, so get data.
                 model = this.chartService.GetUsersChart();
-
-                // Set cache options.
+                
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
-
-                // Save data in cache.
+                
                 memoryCache.Set(ChartCacheKey, model, cacheEntryOptions);
             }
             return View(model);

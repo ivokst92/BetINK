@@ -13,6 +13,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using BetINK.Common.Helpers;
 
     public class MatchAdminController : BaseAdminController
     {
@@ -72,7 +73,7 @@
                 HomeWinPoints = 1,
                 AwayWinPoints = 1,
                 DrawPoints = 1,
-                MatchStart = DateTime.Now,
+                MatchStart = DateTime.Now.ToFLEStandartTime(),
                 Teams = teams,
                 RoundId = roundId,
                 LeagueId = leagueId

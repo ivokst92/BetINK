@@ -2,6 +2,7 @@
 {
     using AutoMapper.QueryableExtensions;
     using BetINK.Common.Enums;
+    using BetINK.Common.Helpers;
     using BetINK.DataAccess.Models;
     using BetINK.Services.Interfaces.UserInteractions;
     using BetINK.Services.Models.Prediction;
@@ -28,7 +29,7 @@
                     MatchId = prediction.Key,
                     MatchPrediction = prediction.Value,
                     UserId = userId,
-                    CreatedOn = DateTime.Now
+                    CreatedOn = DateTime.Now.ToFLEStandartTime()
                 };
                 this.db.Predictions.Add(userPrediction);
             }
@@ -62,7 +63,7 @@
             return this.db.Matches
                  .OrderByDescending(x => x.Id)
                  .Where(x => x.RoundId == activeRoundId &&
-                 x.MatchStart > DateTime.Now)
+                 x.MatchStart > DateTime.Now.ToFLEStandartTime())
                  .Select(x => x.Id)
                  .ToList();
         }

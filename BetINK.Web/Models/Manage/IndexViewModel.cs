@@ -1,8 +1,8 @@
-﻿using BetINK.Common.Constants;
-using System.ComponentModel.DataAnnotations;
-
-namespace BetINK.Web.Models.ManageViewModels
+﻿namespace BetINK.Web.Models.ManageViewModels
 {
+    using BetINK.Common.Constants;
+    using System.ComponentModel.DataAnnotations;
+
     public class IndexViewModel
     {
         public string Username { get; set; }

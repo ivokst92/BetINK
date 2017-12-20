@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
-
-namespace BetINK.Web.Data.Migrations
+﻿namespace BetINK.Web.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class MatchLeagueRelation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

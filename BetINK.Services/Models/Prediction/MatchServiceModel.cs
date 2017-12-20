@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using BetINK.Common.Enums;
+    using BetINK.Common.Helpers;
     using BetINK.Common.Mapping;
     using BetINK.DataAccess.Models;
     using System;
@@ -28,7 +29,7 @@
                       .Where(x => x.UserId == userId)
                       .Select(x => x.MatchPrediction).FirstOrDefault()))
                 .ForMember(u => u.IsPredictionAllowed, cfg =>
-                cfg.MapFrom(u => u.MatchStart > DateTime.Now));
+                cfg.MapFrom(u => u.MatchStart > DateTime.Now.ToFLEStandartTime()));
         }
     }
 }

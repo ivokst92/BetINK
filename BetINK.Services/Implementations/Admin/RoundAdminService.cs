@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Identity;
     using BetINK.Common.Constants;
     using System.Threading.Tasks;
+    using BetINK.Common.Helpers;
 
     public class RoundAdminService : IRoundAdminService
     {
@@ -82,7 +83,7 @@
                 Number = number,
                 Description = description,
                 CreatedBy = username,
-                CreatedOn = DateTime.Now,
+                CreatedOn = DateTime.Now.ToFLEStandartTime(),
                 SeasonId = season.Id
             });
 
@@ -101,7 +102,7 @@
             round.Number = number;
             round.Description = description;
             round.ModifiedBy = username;
-            round.ModifiedOn = DateTime.Now;
+            round.ModifiedOn = DateTime.Now.ToFLEStandartTime();
 
             this.db.SaveChanges();
 
@@ -144,7 +145,7 @@
 
             round.IsActive = true;
             round.ModifiedBy = username;
-            round.ModifiedOn = DateTime.Now;
+            round.ModifiedOn = DateTime.Now.ToFLEStandartTime();
             this.db.SaveChanges();
             return true;
         }
@@ -157,7 +158,7 @@
                 return false;
 
             round.ModifiedBy = username;
-            round.ModifiedOn = DateTime.Now;
+            round.ModifiedOn = DateTime.Now.ToFLEStandartTime();
             this.db.SaveChanges();
             return true;
         }

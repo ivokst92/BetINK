@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BetINK.Services.Models.League
+﻿namespace BetINK.Services.Models.League
 {
     public class BaseLeagueServiceModel
     {

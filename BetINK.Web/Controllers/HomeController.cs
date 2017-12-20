@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using BetINK.Web.Models;
-
-namespace BetINK.Web.Controllers
+﻿namespace BetINK.Web.Controllers
 {
+    using BetINK.Web.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Diagnostics;
+
     public class HomeController : Controller
     {
+
         public IActionResult Index()
-        {
-            return View();
-        }
+        => View();
 
         public IActionResult Error()
+        => View(new ErrorViewModel
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            RequestId = Activity.Current?.Id
+            ?? HttpContext.TraceIdentifier
+        });
+
     }
 }
