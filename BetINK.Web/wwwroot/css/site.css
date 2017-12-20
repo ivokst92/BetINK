@@ -90,3 +90,23 @@
 .disabled-radio:active {
     pointer-events: none;
 }
+
+.blue-text > li > a,
+.blue-text > li > button {
+    color: #1498D5 !important;
+    font-weight: bold;
+}
+
+    .blue-text > li > a:hover,
+    .blue-text > li > button:hover {
+        color: #FFFFFF !important;
+    }
+
+.dropdown-background {
+    background-color: #333;
+}
+
+    .dropdown-background > li > a:hover {
+        color: #FFFFFF !important;
+        background-color: black;
+    }

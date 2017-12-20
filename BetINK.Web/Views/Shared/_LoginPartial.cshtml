@@ -7,7 +7,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right blue-text">
             @if (User.IsInRole(WebConstants.AdministratorRole))
             {
                 <li>
@@ -15,7 +15,7 @@
                         @WebConstants.AdministratorRole
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-background blue-text">
                         <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
                         <li><a asp-area="Admin" asp-controller="League" asp-action="All">Leagues</a></li>
                         <li><a asp-area="Admin" asp-controller="Team" asp-action="AllLeagues">Teams</a></li>
@@ -31,7 +31,7 @@
                         @WebConstants.ModeratorRole
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-background blue-text">
                         <li><a asp-area="Moderator" asp-controller="Round" asp-action="All">Rounds</a></li>
                     </ul>
                 </li>
@@ -47,7 +47,7 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right  blue-text">
         <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
         <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
     </ul>
