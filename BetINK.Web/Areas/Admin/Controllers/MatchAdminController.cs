@@ -99,8 +99,8 @@
             this.matchAdminService.Create(model.HomeTeam,
                                           model.AwayTeam,
                                           model.HomeWinPoints,
-                                          model.DrawPoints,
                                           model.AwayWinPoints,
+                                          model.DrawPoints,
                                           model.MatchStart,
                                           model.Result,
                                           model.RoundId,
@@ -147,8 +147,8 @@
                                         model.HomeTeam,
                                         model.AwayTeam,
                                         model.HomeWinPoints,
-                                        model.DrawPoints,
                                         model.AwayWinPoints,
+                                        model.DrawPoints,
                                         model.MatchStart,
                                         model.Result);
 
