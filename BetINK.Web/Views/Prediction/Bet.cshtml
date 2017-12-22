@@ -33,6 +33,6 @@ else if (!Model.AlreadyPredicted && (Model.Matches.Count > 0 || Model.StartedMat
 else
 {
     <h2>Your predictions for round @Model.RoundNumber</h2>
-    @Html.EditorFor(x => x.Matches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
-    @Html.EditorFor(x => x.StartedMatches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
+    @Html.DisplayFor(x => x.Matches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
+    @Html.DisplayFor(x => x.StartedMatches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
 }

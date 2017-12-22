@@ -161,7 +161,7 @@
                 .Returns(userId);
 
             var predictionService = new Mock<IPredictionService>();
-            predictionService.Setup(p => p.GetAllActiveMatchesIds())
+            predictionService.Setup(p => p.GetCurrentActiveMatchesIds())
                 .Returns(new List<int>()
                 {
                 firstMatch.Id,secondMatch.Id
