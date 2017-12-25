@@ -4,31 +4,31 @@
 }
 
 @if ((Model.Matches == null || Model.Matches.Count == 0)
-                          && (Model.StartedMatches == null || Model.StartedMatches.Count == 0))
+                                      && (Model.StartedMatches == null || Model.StartedMatches.Count == 0))
 {
     <h2>No active round yet!</h2>
 }
 else if (!Model.AlreadyPredicted && (Model.Matches.Count > 0 || Model.StartedMatches.Count > 0))
 {
-    <form method="post">
-        @if (Model.Matches.Count > 0)
-        {
+
+    @if (Model.Matches.Count > 0)
+    {
+        <form method="post">
             <h2>Predictions round - @Model.RoundNumber</h2>
 
             @Html.HiddenFor(m => m.AlreadyPredicted)
             @Html.EditorFor(x => x.Matches, "~/Views/Shared/MatchCollection.cshtml")
             <br />
             <input type="submit" class="btn btn-primary" name="submitbutton" value="Save predictions" />
+        </form>
+    }
 
-        }
-
-        @if (Model.StartedMatches != null && Model.StartedMatches.Count > 0)
-        {
-            <h3>Sorry, you've missed to bet @(Model.StartedMatches.Count == 1 ? "this match: " : "these matches:") </h3>
-            @Html.EditorFor(x => x.StartedMatches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
-            <small>Note that, you cannot bet on matches that are already started! </small>
-        }
-    </form>
+    @if (Model.StartedMatches != null && Model.StartedMatches.Count > 0)
+                {
+        <h3>Sorry, you've missed to bet @(Model.StartedMatches.Count == 1 ? "this match: " : "these matches:") </h3>
+                    @Html.EditorFor(x => x.StartedMatches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
+                    <small>Note that, you cannot bet on matches that are already started! </small>
+    }
 }
 else
 {
