@@ -25,7 +25,32 @@
             this.predictionService = predictionService;
             this.userManager = userManager;
         }
+        
 
+        public ActionResult Check(string username)
+        {
+            var user = this.userManager.Users
+                .Where(x => x.UserName == username)
+                .SingleOrDefault();
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            UserPredictionsViewModel model = new UserPredictionsViewModel()
+            {
+                Username = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                RoundNumber = this.predictionService.GetActiveRoundNumber(),
+                Matches = this.predictionService
+                        .GetActiveMatches(user.Id)
+                        .ProjectTo<MatchViewModel>()
+                        .ToList()
+            };
+            return View(model);
+        }
 
         public ActionResult Bet()
         {

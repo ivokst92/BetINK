@@ -24,12 +24,13 @@
         </tr>
     </thead>
     <tbody>
-        @{int postition = 1;}
+        @{int position = 1;}
         @foreach (var user in Model)
          {
-            <tr>
-                <td>@(postition++)</td>
-                <td>@user.Username</td>
+            <tr class="@(position==1 ? "winner" : null)
+                @(position==2 || position==3 ? "runner" : null)">
+                <td>@(position++)</td>
+                <td><a asp-controller="Prediction" asp-action="Check" asp-route-username="@user.Username">@user.Username</a></td>
                 <td>@user.FirstName</td>
                 <td>@user.LastName</td>
                 <td>@user.Points</td>

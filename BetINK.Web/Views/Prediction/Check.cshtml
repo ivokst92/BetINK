@@ -1,0 +1,17 @@
+﻿@model UserPredictionsViewModel
+@{
+    ViewData["Title"] = $"{Model.Username} predictions for the current round.";
+}
+@if ((Model.Matches == null || Model.Matches.Count == 0))
+{
+    <h2>No predictions yet for @Model.Username!</h2>
+}
+else
+{
+    <h2>Round @Model.RoundNumber - @Model.FirstName @Model.LastName (@Model.Username)</h2>
+    @Html.DisplayFor(x => x.Matches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
+}
+
+
+
+

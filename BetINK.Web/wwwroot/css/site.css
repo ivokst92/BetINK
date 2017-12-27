@@ -58,12 +58,12 @@
 }
 
 .emblem {
-    max-height:32px;
-    max-width:32px;
+    max-height: 32px;
+    max-width: 32px;
 }
 
 .radio-margin {
-    margin-left:30px!important;
+    margin-left: 30px !important;
 }
 
 .site-logo {
@@ -111,3 +111,19 @@
         color: #FFFFFF !important;
         background-color: black;
     }
+
+.winner {
+    background-color: #33ff77;
+}
+
+.runner {
+    background-color: #ffd633;
+}
+
+.winner:hover {
+    background-color: #66ff99 !important;
+}
+
+.runner:hover {
+    background-color: #ffff66 !important;
+}
