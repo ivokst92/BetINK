@@ -46,6 +46,16 @@
                  .ProjectTo<MatchServiceModel>(new { userId = userId });
         }
 
+        public IQueryable<MatchServiceModel> GetMatches(string userId, int round)
+        {
+            int activeSeason = GetActiveSeason();
+            return this.db.Matches
+                 .OrderByDescending(x => x.Id)
+                 .Where(x => x.Round.Number == round 
+                 && x.Round.SeasonId == activeSeason)
+                 .ProjectTo<MatchServiceModel>(new { userId = userId });
+        }
+
         public int GetActiveRoundNumber()
         {
             int activeSeason = GetActiveSeason();
@@ -110,6 +120,40 @@
                   && x.SeasonId == activeSeason)
                   .Select(x => x.Id)
                   .FirstOrDefault();
+        }
+
+        private DateTime GetActiveRoundCreateDate()
+        {
+            int activeSeason = GetActiveSeason();
+            return this.db
+                  .Rounds
+                  .Where(x => x.IsActive == true
+                  && x.SeasonId == activeSeason)
+                  .Select(x => x.CreatedOn)
+                  .FirstOrDefault();
+        }
+
+        public IEnumerable<TeamEmblemServiceModel> GetEmblems(List<string> teams)
+        {
+            return this.db.Teams
+                  .Where(x => teams.Contains(x.Name))
+                  .Select(x =>
+                      new TeamEmblemServiceModel
+                      {
+                          Team = x.Name,
+                          EmblemUrl = x.EmblemUrl
+                      });
+        }
+
+        public List<int> GetCurrentSeasonRounds()
+        {
+            int activeSeason = GetActiveSeason();
+            DateTime date = GetActiveRoundCreateDate();
+            return this.db.Rounds
+                 .Where(x => x.SeasonId == activeSeason 
+                 && x.CreatedOn <= date)
+                 .Select(x => x.Number)
+                 .ToList();
         }
     }
 }

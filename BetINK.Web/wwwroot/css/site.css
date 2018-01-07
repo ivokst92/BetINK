@@ -127,3 +127,11 @@
 .runner:hover {
     background-color: #ffff66 !important;
 }
+
+.resp-radion {
+    white-space: normal;
+}
+
+.disabled-page {
+    pointer-events: none;
+}

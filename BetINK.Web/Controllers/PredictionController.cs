@@ -25,9 +25,9 @@
             this.predictionService = predictionService;
             this.userManager = userManager;
         }
-        
 
-        public ActionResult Check(string username)
+
+        public ActionResult Check(string username, int round)
         {
             var user = this.userManager.Users
                 .Where(x => x.UserName == username)
@@ -43,12 +43,27 @@
                 Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                RoundNumber = this.predictionService.GetActiveRoundNumber(),
-                Matches = this.predictionService
+            };
+
+            if (round == 0)
+            {
+                model.RoundNumber = this.predictionService.GetActiveRoundNumber();
+                model.Matches = this.predictionService
                         .GetActiveMatches(user.Id)
                         .ProjectTo<MatchViewModel>()
-                        .ToList()
-            };
+                        .ToList();
+            }
+            else
+            {
+                model.RoundNumber = round;
+                model.Matches = this.predictionService
+                        .GetMatches(user.Id, round)
+                        .ProjectTo<MatchViewModel>()
+                        .ToList();
+            }
+            model.Matches = SetTeamEmblems(model.Matches);
+            model.Rounds = this.predictionService.GetCurrentSeasonRounds();
+
             return View(model);
         }
 
@@ -69,6 +84,10 @@
                     .ProjectTo<MatchViewModel>()
                     .ToList()
             };
+
+            model.StartedMatches = SetTeamEmblems(model.StartedMatches);
+            model.Matches = SetTeamEmblems(model.Matches);
+
             return View(model);
         }
 
@@ -104,5 +123,36 @@
 
         private string GetUserId()
         => this.userManager.GetUserId(User);
+
+        private List<string> GetTeams(List<MatchViewModel> matches)
+        {
+            List<string> teams = new List<string>();
+            foreach (var match in matches)
+            {
+                teams.Add(match.HomeTeam);
+                teams.Add(match.AwayTeam);
+            }
+            return teams;
+        }
+
+        private List<MatchViewModel> SetTeamEmblems(List<MatchViewModel> matches)
+        {
+            var teams = GetTeams(matches);
+            var teamEmblems = this.predictionService.GetEmblems(teams);
+
+            foreach (var match in matches)
+            {
+                match.HomeTeamEmblemUrl = teamEmblems
+                                        .Where(x => x.Team == match.HomeTeam)
+                                        .Select(x => x.EmblemUrl)
+                                        .FirstOrDefault();
+
+                match.AwayTeamEmblemUrl = teamEmblems
+                                        .Where(x => x.Team == match.AwayTeam)
+                                        .Select(x => x.EmblemUrl)
+                                        .FirstOrDefault();
+            }
+            return matches;
+        }
     }
 }

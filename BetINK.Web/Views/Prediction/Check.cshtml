@@ -8,10 +8,39 @@
 }
 else
 {
+    if (!(Model.Rounds == null || Model.Rounds.Count == 0 || Model.Rounds.Count == 1))
+    {
+
+        var previousDisabled = Model.RoundNumber == Model.Rounds.First() ? "disabled disabled-page" : string.Empty;
+        var nextDisabled = Model.RoundNumber == Model.Rounds.Last() ? "disabled disabled-page" : string.Empty;
+        var currentRoundIndex = Model.Rounds.FindIndex(x => x == Model.RoundNumber);
+        var prevRound = currentRoundIndex == 0 ? Model.Rounds[currentRoundIndex] : Model.Rounds[currentRoundIndex - 1];
+        var nextRound = currentRoundIndex == Model.Rounds.Count - 1 ? Model.Rounds[currentRoundIndex] : Model.Rounds[currentRoundIndex + 1];
+
+        <ul class="pagination">
+            <li class="page-item @previousDisabled ">
+                <a class="page-link @previousDisabled " href="/prediction/check?username=@Model.Username+&round=@prevRound" aria-label="Previous">
+                    <span aria-hidden="true">❮</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            @foreach (var round in Model.Rounds)
+            {
+                <li class="page-item @(Model.RoundNumber == round? "active" : string.Empty)"><a class="page-link" href="/prediction/check?username=@Model.Username+&round=@round">@round</a></li>
+            }
+            <li class="page-item @nextDisabled">
+                <a class="page-link @nextDisabled" href="/prediction/check?username=@Model.Username+&round=@nextRound" aria-labe aria-label="Next">
+                    <span aria-hidden="true">❯</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+
+
+    }
+
     <h2>Round @Model.RoundNumber - @Model.FirstName @Model.LastName (@Model.Username)</h2>
     @Html.DisplayFor(x => x.Matches, "~/Views/Shared/MatchCollection.cshtml", new { status = "disabled-radio" })
 }
-
-
 
 
